@@ -21,7 +21,7 @@ class ACMDetailsPage extends StatefulWidget {
 }
 
 class _ACMDetailsPageState extends State<ACMDetailsPage> {
-  bool read = false; // Add a state variable to manage read state
+  bool read = false; 
   MyWidgets mywidget = const MyWidgets();
 
   void toggleRead() {
