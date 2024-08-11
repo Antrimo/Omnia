@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:omnia/Resources/Theme/theme.dart';
+import 'package:omnia/Screens/Events/events.dart';
 import 'package:omnia/Screens/Home/events_desc.dart';
 import 'package:omnia/Screens/Menu/menu.dart';
 import 'package:omnia/cardvalues.dart';
@@ -138,7 +139,8 @@ class _MainHomeState extends State<MainHome> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        launchUrlString(registerUrl);
+                                        // launchUrlString(registerUrl);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const UserForm()));
                                       },
                                       child: Container(
                                         height: 22,

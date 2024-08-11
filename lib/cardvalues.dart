@@ -237,35 +237,23 @@ List<String> acmImages = [
 
 
 
+//...........EVENTS GSHEETS...........//
 
 
+const _credentials = r''' 
+{
+  "type": "service_account",
+  "project_id": "acm-events-432208",
+  "private_key_id": "fa857a38e5313cd2546d51fc9302592673f98118",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCarU6O26Z/p2g7\ntPvtUhRNgeUBD+6pev+lW5SEfwZ4ClN1JYI/OOcyBd/LX1TI4Uz6DMtUYvkj1Zn1\nXwrGFu/kGOtN0hlSYETxJrCI4OhCtTddNWsJwEnVyukDnNJQjIecDX8NexB9Ca/A\nvgt0srde8P2nHr+XxLK5zHL+ncEl14Xtv9/3DibahjvYAi6YBL90XU8Xr3bNPSdZ\nwHvM/RxGUT8yoygMqEO40pSpUWvehytcUebcansmh9yQkzuaP0G7E+6AmiFlgf5l\nINXAjsCW+7FeCvJDvY3qugCeICkZii7AF3KyU/wckGvUAh8isLrxCZvTZcQbWjUJ\ng3CMN8qTAgMBAAECggEARoBK58uPOu0jkd9e2t+IGIHlzxOjfUVuY8D302KQoMNY\nIfOsR8PYgVDzHiAAJaWnr+uH/Bk2pNI14ATnhL2sryN6kRh76TOvCNnRKjqVMt6l\ncwsnlCS8osFfbwGaTROYthTivdLDg7KYFLqqvxC8iv4+J1/ZBUSnEA/ztEFUabn6\nNNlialtl7F8pCgQhe2fy+Tmb5wWw+aH4MzBUq4yPET83ZE2CqqNTR6dEBgGH+Bhf\nUE7Hd3eijo/2M9AULPuzTv0wHf6rV1CwUEAlNqI3IxWvujFT2YnnSymT0xAbgVco\n6yz2aJCyLwviwMeOSFsdl2JeWDZ1inrcicJVMUQhmQKBgQDX5np39oogCRRRBG9h\n9kn4cs7zoaGRv/wjjPGBJ4nDHlXTrhKi6bLdsgjRjTOIL+Ee1ULhYbb36HtQiOOQ\nc+yHSkORWGYpiGN8ugavyU+XYXcZ3MI652Q9bOYkRaAe50wEfa4kdT/qjrAAQNd7\nXA7QbgAsz/1o3l/IpMSv0SfdOwKBgQC3Z8/V+8uUbV0C7Z3IKGq+Jtf38vC+ZwNE\n5Y77x1Apt+erTNn9xX+BZj/bFiOAwu08nM8DgY5vJfITfovF5XHZD1AFtyCeVBAB\nQWDQGaSobtt447tf3bULmKyhqCethkmuVXAXpa3cMNXb/slX8dSlmaQDiSUTOpwE\nA4CBOLjSiQKBgC4nTSL8B0cV6cvwAMeWWPXNxUP714hK3GHVLYOIqkCV6Y8Y9U7y\nWpReDNiPMOb6JUvsFyILO4v/nOz4dn1Y6sV5MLyPgzd5uprdQbSuel9ILKfQs4zY\nDmu7Le+vGq3AkFWdcG7GyeUgn6tOMUJjyZ7xBQSPagLTFvLTlmBne/glAoGAQMnE\nSpQDK3Cirbkgxqc4Zem02xsP3kLnjbwGEX0sHUCg7wtb6mCNFTn4jr04V3EEeyft\nnRB0L2FZLXfDimnuGL5nB03UkPmjGb5to7WbTAC1OPRBqbDZFrqdKRIMyiio+JOn\n4EKfsyvxMCDGIXIFK2al4LXeyfcnS+esynkuGPkCgYALcA9wnW6eKhwnAkscbCJZ\naFovguNqvRDT0cAJMiS0wlu7HWU8c6CbI/ByyL1YEp2E3dEyFycE7712NH6iz4Al\nXh+la0gQP2GXD62z3nepjqZOCd6K1+ZqkdYyJRnfxeXO8PyJ3N/BWa4QSse1tqrQ\n0dZtWGc94nHcHAni5U7CVg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "acm-events@acm-events-432208.iam.gserviceaccount.com",
+  "client_id": "105613303499758279713",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/acm-events%40acm-events-432208.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
+''';
 
-
-
-// .......MEMBERS CARD VALUES........//
-
-// const membersCardNo = 5;
-
-// List<String> initials = [
-//   'JD',
-//   'AS',
-//   'MS',
-//   'LW',
-//   'EJ',
-// ];
-
-// List<String> usernames = [
-//   'john_doe',
-//   'alice_smith',
-//   'mark_sullivan',
-//   'lisa_walker',
-//   'eric_jones',
-// ];
-
-// List<String> memberImages = [
-//   "assets/profile1.png",
-//   "assets/profile2.png",
-//   "assets/profile3.png",
-//   "assets/profile4.png",
-//   "assets/profile5.png",
-// ];
+const _spreadsheetId = '19Of0siGvy4yAKLrtxemmEmNpww2Dkxo5DC_gVrFOhEc';
