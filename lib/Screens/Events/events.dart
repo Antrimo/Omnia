@@ -7,10 +7,10 @@ class UserForm extends StatefulWidget {
   const UserForm({super.key});
 
   @override
-  _UserFormState createState() => _UserFormState();
+  UserFormState createState() => UserFormState();
 }
 
-class _UserFormState extends State<UserForm> {
+class UserFormState extends State<UserForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -34,19 +34,26 @@ class _UserFormState extends State<UserForm> {
       );
 
       if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Data submitted successfully')),
-        );
+        if(mounted)
+        {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Data submitted successfully')),
+          );
+        }
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to submit data')),
-        );
+        if(mounted)
+        {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Failed to submit data')),
+          );
+        }
       }
     } catch (e) {
-      print(e);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      if(mounted){
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
     }
   }
 

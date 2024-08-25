@@ -8,7 +8,7 @@ const homeCardNo = 4;
 const registerUrl = "https://www.google.com";
 
 List<String> homeHeadings = [
-  "Smart India Hackathon",
+  "Smart India Hackathon 2023",
   "Qriosity",
   "Inside-Out",
   "Tech-O-Ween",

@@ -52,19 +52,23 @@ class _EditProfileState extends State<EditProfile> {
 
   Future<void> _fetchUserData() async {
     if (user == null) {
-      notif.myElegantError(context, "User not logged in");
+      if (mounted) {
+        notif.myElegantError(context, "User not logged in");
+      }
       return;
     }
 
     final email = user!.email;
     if (email == null) {
-      notif.myElegantError(context, "User email not found");
+      if (mounted) {
+        notif.myElegantError(context, "User email not found");
+      }
       return;
     }
 
     try {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('UserModel').doc(email).get();
-      if (userDoc.exists) {
+      if (userDoc.exists && mounted) {
         Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
         setState(() {
           _nameController.text = userData['name'] ?? '';
@@ -77,19 +81,25 @@ class _EditProfileState extends State<EditProfile> {
         });
       }
     } catch (e) {
-      notif.myElegantError(context, "Failed to fetch user data: $e");
+      if (mounted) {
+        notif.myElegantError(context, "Failed to fetch user data: $e");
+      }
     }
   }
 
   Future<void> _saveData() async {
     if (user == null) {
-      notif.myElegantError(context, "User not logged in");
+      if (mounted) {
+        notif.myElegantError(context, "User not logged in");
+      }
       return;
     }
 
     final email = user!.email;
     if (email == null) {
-      notif.myElegantError(context, "User email not found");
+      if (mounted) {
+        notif.myElegantError(context, "User email not found");
+      }
       return;
     }
 
@@ -109,7 +119,6 @@ class _EditProfileState extends State<EditProfile> {
         if (profileImageUrl != null) 'avatar': profileImageUrl,
       };
 
-      // Check if document exists
       DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('UserModel').doc(email).get();
       if (userDoc.exists) {
         await FirebaseFirestore.instance.collection('UserModel').doc(email).update(userData);
@@ -117,12 +126,17 @@ class _EditProfileState extends State<EditProfile> {
         await FirebaseFirestore.instance.collection('UserModel').doc(email).set(userData);
       }
 
-      notif.myElegantSuccess(context, "Profile Updated Successfully");
-      await Future.delayed(const Duration(seconds: 1));
-      Navigator.pop(context,);
-
+      if (mounted) {
+        notif.myElegantSuccess(context, "Profile Updated Successfully");
+        await Future.delayed(const Duration(seconds: 1));
+        if(mounted){
+          Navigator.pop(context);
+        }
+      }
     } catch (e) {
-      notif.myElegantError(context, "Failed to update profile: $e");
+      if (mounted) {
+        notif.myElegantError(context, "Failed to update profile: $e");
+      }
     }
   }
 
@@ -130,16 +144,18 @@ class _EditProfileState extends State<EditProfile> {
     try {
       final ref = FirebaseStorage.instance.ref().child('user/profile').child(user!.email!);
       UploadTask uploadTask = ref.putFile(_imageFile!);
-      notif.myElegantInfo(context, 'Uploading...', 10);
-      // Add listener for debugging purposes
+      if (mounted) {
+        notif.myElegantInfo(context, 'Uploading...', 10);
+      }
       uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
-        // notif.myElegantInfo(context, '');
+        // Listener for debugging purposes
       }, onError: (e) {
-        notif.myElegantInfo(context, 'Error: $e', 4);
+        if (mounted) {
+          notif.myElegantInfo(context, 'Error: $e', 4);
+        }
       });
 
       final snapshot = await uploadTask;
-
       return await snapshot.ref.getDownloadURL();
     } on FirebaseException catch (e) {
       throw Exception('FirebaseException: ${e.message}');
@@ -159,7 +175,9 @@ class _EditProfileState extends State<EditProfile> {
         _imageFile = File(pickedFile.path);
       });
     } else {
-      notif.myElegantError(context, 'No image selected.');
+      if (mounted) {
+        notif.myElegantError(context, 'No image selected.');
+      }
     }
   }
 
@@ -214,9 +232,11 @@ class _EditProfileState extends State<EditProfile> {
                   right: 0,
                   child: GestureDetector(
                     onTap: () async {
-                      notif.myElegantInfo(context, "Use Square image for best results", 2);
-                      await Future.delayed(const Duration(seconds: 2));
-                      _pickImage();
+                      if (mounted) {
+                        notif.myElegantInfo(context, "Use Square image for best results", 2);
+                        await Future.delayed(const Duration(seconds: 2));
+                        _pickImage();
+                      }
                     },
                     child: Container(
                       height: 40,
@@ -283,5 +303,3 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 }
-
-

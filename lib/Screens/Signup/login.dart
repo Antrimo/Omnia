@@ -51,7 +51,9 @@ class _LoginState extends State<Login> {
         UserCredential? userCred = await Auth().createUserWEmailPass(
             email: _email.text, pass: _passk.text);
         cloud.makeUser(userCred, _name);
-        Navigator.pop(context);
+        if(mounted){
+          Navigator.pop(context);
+        }
       } on FirebaseAuthException catch (e) {
         setState(() {
           errortext = e.message;
