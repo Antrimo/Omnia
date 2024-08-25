@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:omnia/Resources/Theme/theme.dart';
 import 'package:omnia/Resources/elegantnotif.dart';
 
-
 class ReportBug extends StatefulWidget {
   const ReportBug({super.key});
 
@@ -13,7 +12,6 @@ class ReportBug extends StatefulWidget {
 }
 
 class _ReportBugState extends State<ReportBug> {
-
   late TextEditingController _titleController;
   late TextEditingController _bugController;
   String? email;
@@ -47,30 +45,37 @@ class _ReportBugState extends State<ReportBug> {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('UserModel').doc(email).get();
       if (userDoc.exists) {
         Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
-        setState(() {
-          username = userData['name'] ?? 'Name';
-          email = userData['email'] ?? 'email unidentified';
-        });
+        if (mounted) {
+          setState(() {
+            username = userData['name'] ?? 'Name';
+            email = userData['email'] ?? 'email unidentified';
+          });
+        }
       }
     } catch (e) {
-      notif.myElegantError(context ,"Failed to fetch user data: $e");
+      if (mounted) {
+        notif.myElegantError(context, "Failed to fetch user data: $e");
+      }
     }
   }
 
   Future<void> _report() async {
     if (user == null) {
-      notif.myElegantError(context, "User not logged in");
+      if (mounted) {
+        notif.myElegantError(context, "User not logged in");
+      }
       return;
     }
 
     final email = user!.email;
     if (email == null) {
-      notif.myElegantError(context, "User email not found");
+      if (mounted) {
+        notif.myElegantError(context, "User email not found");
+      }
       return;
     }
 
     try {
-
       final bugData = {
         'title': _titleController.text,
         'bug': _bugController.text,
@@ -78,15 +83,19 @@ class _ReportBugState extends State<ReportBug> {
         'email': email,
       };
 
-      // Check if document exists
       await FirebaseFirestore.instance.collection('BugReports').add(bugData);
 
-      notif.myElegantSuccess(context, "Bug reported Successfully. Thank You.");
-      await Future.delayed(const Duration(seconds: 1));
-      Navigator.pop(context,);
-
+      if (mounted) {
+        notif.myElegantSuccess(context, "Bug reported Successfully. Thank You.");
+        await Future.delayed(const Duration(seconds: 1));
+        if(mounted){
+          Navigator.pop(context);
+        }
+      }
     } catch (e) {
-      notif.myElegantError(context, "Failed to Report Bug: $e");
+      if (mounted) {
+        notif.myElegantError(context, "Failed to Report Bug: $e");
+      }
     }
   }
 
@@ -108,7 +117,6 @@ class _ReportBugState extends State<ReportBug> {
           },
         ),
       ),
-
       backgroundColor: primaryColor,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -134,7 +142,7 @@ class _ReportBugState extends State<ReportBug> {
               ),
               child: const Text('Report'),
             ),
-          ]
+          ],
         ),
       ),
     );

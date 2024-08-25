@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:omnia/Resources/Theme/theme.dart';
 import 'package:omnia/Resources/elegantnotif.dart';
-import 'package:omnia/Screens/navbar.dart/navbar.dart';
+import 'package:omnia/Screens/navbar/navbar.dart';
 import 'package:omnia/Screens/Profile/profedit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:omnia/Screens/Signup/auth.dart';
@@ -88,10 +88,13 @@ class _ProfileState extends State<Profile> with RouteAware {
         });
       }
     } catch (e) {
-      notif.myElegantError(context, "Failed to fetch user data: $e");
+      if(mounted)
+      {
+        notif.myElegantError(context, "Failed to fetch user data: $e");
       setState(() {
         isLoading = false; // Set loading to false in case of error
       });
+      }
     }
   }
 
