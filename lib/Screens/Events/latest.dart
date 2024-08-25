@@ -16,58 +16,59 @@ class _LatestEventState extends State<LatestEvent> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-                  height: 420,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: itemColor),
-                    borderRadius: BorderRadius.circular(10),
-                    color: cardColor,
-                  ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 320,
-                            width: 340,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(10),
-                              color: imagebackColor,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Stack(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        child: Image.asset(
-                                          'assets/sih/Sihsquare.png',
-                                          alignment: Alignment.center,
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
-                                          height: double.infinity,
+    return InkWell(
+      
+                                      onTap: () {
+                                        // launchUrlString(registerUrl);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const SihForm()));
+                                      },
+      child: Container(
+                    height: 420,
+                    width: 380,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: itemColor),
+                      borderRadius: BorderRadius.circular(10),
+                      color: cardColor,
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 320,
+                              width: 340,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10),
+                                color: imagebackColor,
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          child: Image.asset(
+                                            'assets/sih/Sihsquare.png',
+                                            alignment: Alignment.center,
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              // launchUrlString(registerUrl);
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> const SihForm()));
-                            },
-                            child: Expanded(
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -110,7 +111,7 @@ class _LatestEventState extends State<LatestEvent> {
                                   ),
                                   const SizedBox(height: 10),
                                   const Text(
-                                    "Internal Round for the National Hackathon",
+                                    "JUIT Internal Round.",
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       color: Colors.white,
@@ -119,11 +120,11 @@ class _LatestEventState extends State<LatestEvent> {
                                 ],
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                );
+    );
   }
 }
