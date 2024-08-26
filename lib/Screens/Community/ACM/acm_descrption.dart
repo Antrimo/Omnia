@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:omnia/Resources/Theme/theme.dart';
 import 'package:omnia/Screens/Community/ACM/Sessions/session.dart';
 import 'package:omnia/Resources/widget_tiles.dart';
+import 'package:omnia/Screens/Community/Council/oldcouncil.dart';
 
 class ACMDetailsPage extends StatefulWidget {
   final String heading;
@@ -146,6 +147,92 @@ class _ACMDetailsPageState extends State<ACMDetailsPage> {
                                       ],
                                     ),
                                   ),
+
+                                  
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const OldCouncil()),
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    gradientColor2,
+                                    gradientColor1,
+                                  ],
+                                ),
+                                border: Border.all(color: itemColor, width: 0.6),
+                                borderRadius: BorderRadius.circular(10),
+                                color: cardColor,
+                              ),
+                              height: 120,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Stack(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          child: Image.asset(
+                                            "assets/council/oldcouncil.jpg",
+                                            // alignment: Alignment.center,
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                          ),
+                                        ),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          child: BackdropFilter(
+                                            filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+                                            child: Container(
+                                              color: Colors.black.withOpacity(0.3),
+                                              width: double.infinity,
+                                              height: double.infinity,
+                                            ),
+                                          ),
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.all(12.0),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "2023-2024",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Text(
+                                                "Council Members",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  
                                 ],
                               ),
                             ),
